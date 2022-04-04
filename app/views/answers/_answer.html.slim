@@ -1,8 +1,19 @@
 div id="answer_#{answer.id}"
+
+  - if answer.best?
+    h4= 'The Best!'
+  - elsif current_user&.author?(answer)
+    p= link_to 'Set best',
+    set_best_answer_path(answer),
+    method: :patch,
+    remote: true
+
   p= answer.body
 
   - if current_user&.author?(answer)
+  
     p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
+
     p= link_to 'Delete answer',
                 answer_path(answer),
                 method: :delete,
