@@ -23,6 +23,7 @@ feature 'User can edit his question', %q{
 
       click_on 'Edit'
     end
+
     scenario 'edits his question' do
       within '.question' do
         fill_in 'Title', with: 'New title'
@@ -59,11 +60,10 @@ feature 'User can edit his question', %q{
         expect(page).to have_link 'rails_helper.rb'
         expect(page).to have_link 'spec_helper.rb'
       end
-   end
-
+    end
   end
 
-  scenario " Authenticated user tries to edit other user's question", js: true do
+  scenario "Authenticated user tries to edit other user's question", js: true do
     sign_in(user)
     visit question_path(question)
 
