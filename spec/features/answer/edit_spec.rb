@@ -17,13 +17,14 @@ feature 'User can edit his answer', %q{
     expect(page).to_not have_link 'Edit'
   end
 
-  describe 'Authenticated user' do
-    scenario 'edits his answer', js: true do
+  describe 'Author', js: true do
+    background do
       sign_in author
       visit question_path(question)
 
       click_on 'Edit'
-
+    end
+    scenario 'edits his answer' do
       within '.answers' do
         fill_in 'Your answer', with: 'edited answer'
         click_on 'Save'
@@ -34,12 +35,7 @@ feature 'User can edit his answer', %q{
       end
     end
 
-    scenario 'edits his answer with errors', js: true do
-      sign_in author
-      visit question_path(question)
-
-      click_on 'Edit'
-
+    scenario 'edits his answer with errors' do
       within '.answers' do
         fill_in 'Your answer', with: ''
         click_on 'Save'
@@ -49,11 +45,23 @@ feature 'User can edit his answer', %q{
       expect(page).to have_content "Body can't be blank"
     end
 
-    scenario "tries to edit other user's question", js: true do
-      sign_in(user)
-      visit question_path(question)
+    scenario 'edits answer with attached files' do
+      within '.answers' do
+        fill_in 'Your answer', with: 'New body'
 
-      expect(page).to_not have_link 'Edit'
-    end
+        attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+        click_on 'Save'
+
+        expect(page).to have_link 'rails_helper.rb'
+        expect(page).to have_link 'spec_helper.rb'
+      end
+   end
+ end
+
+  scenario "Authenticated user tries to edit other user's question", js: true do
+    sign_in(user)
+    visit question_path(question)
+
+    expect(page).to_not have_link 'Edit'
   end
 end

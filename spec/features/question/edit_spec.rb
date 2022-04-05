@@ -16,13 +16,14 @@ feature 'User can edit his question', %q{
     expect(page).to_not have_link 'Edit'
   end
 
-  describe 'Authenticated user' do
-    scenario 'edits his question', js: true do
+  describe 'Author', js: true  do
+    background do
       sign_in author
       visit question_path(question)
 
       click_on 'Edit'
-
+    end
+    scenario 'edits his question' do
       within '.question' do
         fill_in 'Title', with: 'New title'
         fill_in 'Body', with: 'New body'
@@ -36,12 +37,7 @@ feature 'User can edit his question', %q{
       end
     end
 
-    scenario 'edits his question with errors', js: true do
-      sign_in author
-      visit question_path(question)
-
-      click_on 'Edit'
-
+    scenario 'edits his question with errors' do
       within '.question' do
         fill_in 'Body', with: ''
         click_on 'Save'
@@ -52,11 +48,25 @@ feature 'User can edit his question', %q{
       expect(page).to have_content "Body can't be blank"
     end
 
-    scenario "tries to edit other user's question", js: true do
-      sign_in(user)
-      visit question_path(question)
+    scenario 'edits a question with attached files' do
+      within '.question' do
+        fill_in 'Title', with: 'New title'
+        fill_in 'Body', with: 'New body'
 
-      expect(page).to_not have_link 'Edit'
-    end
+        attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+        click_on 'Save'
+
+        expect(page).to have_link 'rails_helper.rb'
+        expect(page).to have_link 'spec_helper.rb'
+      end
+   end
+
+  end
+
+  scenario " Authenticated user tries to edit other user's question", js: true do
+    sign_in(user)
+    visit question_path(question)
+
+    expect(page).to_not have_link 'Edit'
   end
 end
