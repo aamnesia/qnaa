@@ -36,6 +36,11 @@ div id="answer_#{answer.id}"
     p
       = f.label :body, 'Your answer'
       = f.text_area :body
+
+    p
+      = f.fields_for :links do |l|
+      = link_to_add_association 'Add link', f, :links, partial: 'links/fields'
+
     p
       = f.label :files
       = f.file_field :files, multiple: true, direct_upload: true
