@@ -11,6 +11,8 @@ feature 'User can inspect question and its answers', %q{
   given!(:question) { create(:question, :with_attachment, user: author) }
   given!(:answer) { create(:answer, :with_attachment, question: question, user: author) }
   given!(:answers) { create_list(:answer, 3, question: question, user: author) }
+  given!(:questions_link) { create(:link, linkable: question, name: 'Questions_link') }
+  given!(:answers_link) { create(:link, linkable: answer, name: 'Answers_link') }
 
   describe 'User' do
     background { visit question_path(question) }
@@ -66,6 +68,24 @@ feature 'User can inspect question and its answers', %q{
        expect(page).to_not have_content answer.files
      end
    end
+
+   scenario "question's link" do
+      within ".question_links .link_#{questions_link.id}" do
+        page.accept_confirm do
+          click_link 'Delete link'
+        end
+      end
+      expect(page).to_not have_content questions_link.name
+    end
+
+    scenario "answer's link" do
+      within ".answer_links .link_#{answers_link.id}" do
+        page.accept_confirm do
+          click_link 'Delete link'
+        end
+      end
+      expect(page).to_not have_content answers_link.name
+    end
  end
 
  describe "Not author tries to delete" do
@@ -86,5 +106,17 @@ feature 'User can inspect question and its answers', %q{
        expect(page).to_not have_link 'Delete file'
      end
    end
+
+   scenario "question's link" do
+      within ".question_links .link_#{questions_link.id}" do
+        expect(page).to_not have_link 'Delete link'
+      end
+    end
+
+    scenario "answer's link" do
+      within ".answer_links .link_#{answers_link.id}" do
+        expect(page).to_not have_link 'Delete link'
+      end
+    end
  end
 end
