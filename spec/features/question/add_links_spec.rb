@@ -6,24 +6,36 @@ feature 'User can add links to question', %q{
   I'd like to be able to add links
 } do
 
-  given(:user) { create(:user) }
-  given(:gist_url) { 'https://gist.github.com/vkurennov/743f9367caa1039874af5a2244e1b44c' }
+  given(:user) {create(:user)}
+  given!(:question) {create(:question)}
+  given(:url) { 'https://google.com' }
+  given(:gist_url) {'https://gist.github.com/aamnesia/3c5a1bd3e61cd6513087082d802eb0ea'}
 
-  scenario 'User adds link when asks question', js: true do
-    sign_in(user)
-    visit new_question_path
+  describe 'User on question create adds ', js: true do
+    background do
+      sign_in(user)
+      visit new_question_path
+      fill_in 'Title', with: 'Test question'
+      fill_in 'Body', with: 'text text text'
+      click_on 'Add link'
+    end
 
-    fill_in 'Title', with: 'Test question'
-    fill_in 'Body', with: 'text text text'
+    scenario 'gist_url' do
+      fill_in 'Link name', with: 'My gist'
+      fill_in 'Url', with: gist_url
 
-    click_on 'Add link'
+      click_on 'Ask'
 
-    fill_in 'Link name', with: 'My gist'
-    fill_in 'Url', with: gist_url
+      expect(page).to have_content 'qna'
+    end
 
-    click_on 'Ask'
+    scenario 'plain url' do
+      fill_in 'Link name', with: 'My link'
+      fill_in 'Url', with: url
 
-    expect(page).to have_link 'My gist', href: gist_url
+      click_on 'Ask'
+
+      expect(page).to have_link 'My link', href: url
+    end
   end
-
 end

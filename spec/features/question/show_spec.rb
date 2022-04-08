@@ -13,6 +13,7 @@ feature 'User can inspect question and its answers', %q{
   given!(:answers) { create_list(:answer, 3, question: question, user: author) }
   given!(:questions_link) { create(:link, linkable: question, name: 'Questions_link') }
   given!(:answers_link) { create(:link, linkable: answer, name: 'Answers_link') }
+  # given!(:gist_link) { create(:link, :gist, linkable: answer, name: 'Gist_link') }
 
   describe 'User' do
     background { visit question_path(question) }
@@ -24,6 +25,12 @@ feature 'User can inspect question and its answers', %q{
 
     scenario 'sees questions answers' do
       answers.each { |answer| expect(page).to have_content answer.body }
+    end
+
+    scenario 'sees links' do
+      expect(page).to have_content 'Questions_link'
+      expect(page).to have_content 'Answers_link'
+      expect(page).to have_content 'qna'
     end
   end
 
@@ -88,7 +95,7 @@ feature 'User can inspect question and its answers', %q{
     end
  end
 
- describe "Not author tries to delete" do
+ describe "Not author tries to delete", js: true do
    background do
      sign_in(user)
 
@@ -108,7 +115,9 @@ feature 'User can inspect question and its answers', %q{
    end
 
    scenario "question's link" do
+
       within ".question_links .link_#{questions_link.id}" do
+        save_and_open_page
         expect(page).to_not have_link 'Delete link'
       end
     end

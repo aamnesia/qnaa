@@ -9,7 +9,7 @@ feature 'User can edit his question', %q{
   given!(:user) { create(:user) }
   given!(:author) { create(:user) }
   given!(:question) { create(:question, user: author) }
-  given(:gist_url) { 'https://gist.github.com/vkurennov/743f9367caa1039874af5a2244e1b44c' }
+  given(:url) { 'https://google.com' }
 
   scenario 'Unauthenticated user can not edit question' do
     visit question_path(question)
@@ -67,10 +67,10 @@ feature 'User can edit his question', %q{
       within '.question' do
         click_on 'Add link'
         fill_in 'Link name', with: 'New link'
-        fill_in 'Url', with: gist_url
+        fill_in 'Url', with: url
         click_on 'Save'
 
-        expect(page).to have_link 'New link', href: gist_url
+        expect(page).to have_link 'New link', href: url
       end
     end
   end

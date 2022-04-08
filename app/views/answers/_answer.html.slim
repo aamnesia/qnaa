@@ -8,8 +8,7 @@ div id="answer_#{answer.id}"
     method: :patch,
     remote: true
 
-  .answer_links
-    = render 'links/links', resource: answer
+  p= answer.body
 
   .answer_files
     - if answer.files.attached?
@@ -19,7 +18,9 @@ div id="answer_#{answer.id}"
           - if current_user&.author?(answer)
             p= link_to 'Delete file', attachment_path(file), method: :delete, remote: true, data: { confirm: "Are you sure?" }
 
-  p= answer.body
+  .answer_links
+    = render 'links/links', resource: answer
+
 
 
 
