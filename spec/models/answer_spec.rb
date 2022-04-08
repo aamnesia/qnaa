@@ -10,7 +10,8 @@ RSpec.describe Answer, type: :model do
 
   describe '#set_best!' do
     let(:user) { create(:user) }
-    let(:question) { create(:question) }
+    let(:question) { create(:question, user: user) }
+    let!(:reward) { create(:reward, question: question) }
     let(:best_answer) { create(:answer, question: question, user: user) }
     let(:answer) { create(:answer, question: question, user: user) }
 
@@ -33,7 +34,12 @@ RSpec.describe Answer, type: :model do
       expect(answer).to be_best
       expect(best_answer).to_not be_best
     end
+
+    it "reward must belong author of best answer" do
+      expect(best_answer.user).to eq question.reward.user
+    end
   end
+
 
   it 'has many attached files' do
     expect(Answer.new.files).to be_an_instance_of(ActiveStorage::Attached::Many)

@@ -11,6 +11,14 @@ h1= @question.title
           - if current_user&.author?(@question)
             em.small= link_to 'Delete file', attachment_path(file), method: :delete, remote: true, data: { confirm: "Are you sure?" }
 
+- if @question.reward.present?
+  p Reward:
+  p
+    = @question.reward.title
+  p
+    = image_tag(@question.reward.image, size: '60x60', alt: "#{@question.reward.title}")
+
+
 p= @question.body
 
 -if current_user&.author?(@question)

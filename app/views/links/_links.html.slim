@@ -1,4 +1,5 @@
-p Links:
-ul
-  - resource.links.each do |link|
-    li= link_to link.name, link.url
+- if resource.links.present?
+  p Links:
+  ul
+    - resource.links.each do |link|
+      li= link_to link.name, link.url
