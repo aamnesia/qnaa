@@ -62,7 +62,7 @@ feature 'User can edit his answer', %q{
      within '.answers' do
        click_on 'Add link'
        fill_in 'Link name', with: 'New link'
-       fill_in 'Url', with: gist_url
+       fill_in 'Url', with: url
        click_on 'Save'
 
        expect(page).to have_link 'New link', href: url
