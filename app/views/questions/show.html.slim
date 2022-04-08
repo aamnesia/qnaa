@@ -17,5 +17,6 @@ h3= "Answers"
   p
     = f.label :files
     = f.file_field :files, multiple: true, direct_upload: true
-  p
+
+    = render 'links/form', resource: f
     = f.submit 'Create'

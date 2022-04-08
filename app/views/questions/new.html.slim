@@ -10,5 +10,6 @@
   p
     = f.label :files
     = f.file_field :files, multiple: true, direct_upload: true
-
+    
+  = render 'links/form', resource: f
   p= f.submit 'Ask'

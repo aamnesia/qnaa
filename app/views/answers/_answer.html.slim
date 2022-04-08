@@ -8,6 +8,9 @@ div id="answer_#{answer.id}"
     method: :patch,
     remote: true
 
+  .links
+    = render 'links/links', resource: answer
+
   .answer_files
     - if answer.files.attached?
       - answer.files.each do |file|

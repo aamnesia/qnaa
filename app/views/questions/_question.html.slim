@@ -1,5 +1,8 @@
 h1= @question.title
 
+.links
+  = render 'links/links', resource: @question
+
 .question_files
   - if @question.files.attached?
       - @question.files.each do |file|
