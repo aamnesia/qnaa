@@ -10,7 +10,7 @@ shared_examples_for 'voted' do
     context "User that isn't an author" do
       before { login(voter) }
 
-      it 'assigns the requested resource to @votable' do
+      it 'assigns the requested votable to @votable' do
         patch :vote_up, params: { id: votable }
         expect(assigns(:votable)).to eq votable
       end
@@ -26,7 +26,7 @@ shared_examples_for 'voted' do
 
       it 'returns data in json' do
         patch :vote_up, params: { id: votable, format: :json }
-        expect(JSON.parse(response.body).keys).to eq %w(resourceName resourceId rating)
+        expect(JSON.parse(response.body).keys).to eq %w(votableName votableId rating)
       end
     end
 
@@ -60,7 +60,7 @@ shared_examples_for 'voted' do
     context "User that isn't an author" do
       before { login(voter) }
 
-      it 'assigns the requested resource to @votable' do
+      it 'assigns the requested votable to @votable' do
         patch :vote_down, params: { id: votable }
         expect(assigns(:votable)).to eq votable
       end
@@ -76,7 +76,7 @@ shared_examples_for 'voted' do
 
       it 'returns data in json' do
         patch :vote_down, params: { id: votable, format: :json }
-        expect(JSON.parse(response.body).keys).to eq %w(resourceName resourceId rating)
+        expect(JSON.parse(response.body).keys).to eq %w(votableName votableId rating)
       end
     end
 
@@ -110,7 +110,7 @@ shared_examples_for 'voted' do
     context "User that isn't an author" do
       before { login(voter) }
 
-      it 'assigns the requested resource to @votable' do
+      it 'assigns the requested votable to @votable' do
         delete :cancel_vote, params: { id: votable }
         expect(assigns(:votable)).to eq votable
       end
@@ -122,7 +122,7 @@ shared_examples_for 'voted' do
 
       it 'returns data in json' do
         patch :cancel_vote, params: { id: votable, format: :json }
-        expect(JSON.parse(response.body).keys).to eq %w(resourceName resourceId rating)
+        expect(JSON.parse(response.body).keys).to eq %w(votableName votableId rating)
       end
     end
 

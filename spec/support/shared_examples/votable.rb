@@ -35,8 +35,9 @@ shared_examples_for 'votable' do
 
   it '#cancel_vote_of' do
     votable.vote_down(user)
+    votable.vote_down(another_user)
     votable.cancel_vote_of(user)
-    expect(votable.rating).to eq 0
+    expect(votable.rating).to eq -1
   end
 
   it '#rating' do
@@ -48,11 +49,11 @@ shared_examples_for 'votable' do
   describe '#vote_of?' do
     before { votable.vote_up(user) }
 
-    it 'true if resource has vote from user' do
+    it 'true if votable has vote from user' do
       expect(votable).to be_vote_of(user)
     end
 
-    it 'false if resource has no votes from user' do
+    it 'false if votable has no votes from user' do
       expect(votable).to_not be_vote_of(another_user)
     end
   end

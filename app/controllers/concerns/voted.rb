@@ -29,8 +29,8 @@ module Voted
   private
 
   def render_json
-    render json: { resourceName: @votable.class.name.downcase,
-                   resourceId: @votable.id,
+    render json: { votableName: @votable.class.name.downcase,
+                   votableId: @votable.id,
                    rating: @votable.rating }
   end
 
@@ -39,11 +39,11 @@ module Voted
            status: :forbidden
   end
 
-  def model_klass
+  def model_class
     controller_name.classify.constantize
   end
 
   def set_votable
-    @votable = model_klass.find(params[:id])
+    @votable = model_class.find(params[:id])
   end
 end
