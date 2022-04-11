@@ -13,7 +13,7 @@ feature 'User can inspect question and its answers', %q{
   given!(:answers) { create_list(:answer, 3, question: question, user: author) }
   given!(:questions_link) { create(:link, linkable: question, name: 'Questions_link') }
   given!(:answers_link) { create(:link, linkable: answer, name: 'Answers_link') }
-  # given!(:gist_link) { create(:link, :gist, linkable: answer, name: 'Gist_link') }
+  given!(:gist_link) { create(:link, :gist, linkable: answer, name: 'Gist_link') }
 
   describe 'User' do
     background { visit question_path(question) }
@@ -77,7 +77,7 @@ feature 'User can inspect question and its answers', %q{
    end
 
    scenario "question's link" do
-      within ".question_links .link_#{questions_link.id}" do
+      within "#link_#{questions_link.id}" do
         page.accept_confirm do
           click_link 'Delete link'
         end

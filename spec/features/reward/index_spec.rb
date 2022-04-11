@@ -10,7 +10,7 @@ feature 'User can see his rewards', %q{
   given!(:question) { create(:question, user: user) }
   given!(:rewards) { create_list(:reward, 3, question: question, user: user) }
 
-  scenario 'User see all him rewards for answers ' do
+  scenario 'User sees all his rewards for answers ' do
     sign_in(user)
     visit rewards_path
 

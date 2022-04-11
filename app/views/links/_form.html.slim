@@ -1,3 +1,2 @@
-p
-  = resource.fields_for :links do |l|
-    = link_to_add_association 'Add link', resource, :links, partial: 'links/fields'
+= resource.fields_for :links do |l|
+= link_to_add_association 'Add link', resource, :links, partial: 'links/fields'

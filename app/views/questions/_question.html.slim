@@ -4,20 +4,9 @@ h1= @question.title
   = render 'links/links', resource: @question
 
 .question_files
-  - if @question.files.attached?
-      - @question.files.each do |file|
-        div class="file_#{file.id}"
-          dd= link_to file.filename.to_s, url_for(file)
-          - if current_user&.author?(@question)
-            em.small= link_to 'Delete file', attachment_path(file), method: :delete, remote: true, data: { confirm: "Are you sure?" }
+  = render 'attachments/attachments', resource: @question
 
-- if @question.reward.present?
-  p Reward:
-  p
-    = @question.reward.title
-  p
-    = image_tag(@question.reward.image, size: '60x60', alt: "#{@question.reward.title}")
-
+= render 'rewards/rewards'
 
 p= @question.body
 
@@ -36,9 +25,7 @@ p= @question.body
       = f.label :body
       = f.text_area :body
 
-    p
-      = f.fields_for :links do |l|
-      = link_to_add_association 'Add link', f, :links, partial: 'links/fields'
+    p= render 'links/form', resource: f
 
     p
       = f.label :files

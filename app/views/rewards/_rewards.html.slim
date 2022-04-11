@@ -1,0 +1,6 @@
+- if @question.reward.present?
+  p Reward:
+  p
+    = @question.reward.title
+  p
+    = image_tag(@question.reward.image, size: '60x60', alt: "#{@question.reward.title}")
