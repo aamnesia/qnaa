@@ -86,7 +86,7 @@ feature 'User can inspect question and its answers', %q{
     end
 
     scenario "answer's link" do
-      within ".answer_links .link_#{answers_link.id}" do
+      within "#link_#{answers_link.id}" do
         page.accept_confirm do
           click_link 'Delete link'
         end
@@ -116,14 +116,13 @@ feature 'User can inspect question and its answers', %q{
 
    scenario "question's link" do
 
-      within ".question_links .link_#{questions_link.id}" do
-        save_and_open_page
+      within "#link_#{questions_link.id}" do
         expect(page).to_not have_link 'Delete link'
       end
     end
 
     scenario "answer's link" do
-      within ".answer_links .link_#{answers_link.id}" do
+      within "#link_#{answers_link.id}" do
         expect(page).to_not have_link 'Delete link'
       end
     end

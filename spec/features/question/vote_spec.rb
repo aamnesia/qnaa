@@ -19,7 +19,6 @@ feature 'User can vote for a question', %q{
 
     scenario 'votes up for question' do
       within "#question_#{question.id}" do
-        save_and_open_page
         click_on '+'
 
         within '.rating' do
