@@ -90,15 +90,7 @@ feature 'User can vote for a question', %q{
       visit questions_path
     end
 
-    scenario 'vote up for his question' do
-      expect(page).to_not have_selector '.vote'
-    end
-
-    scenario 'vote down for his question' do
-      expect(page).to_not have_selector '.vote'
-    end
-
-    scenario 'cancel vote' do
+    scenario 'vote' do
       expect(page).to_not have_selector '.vote'
     end
   end
@@ -107,15 +99,7 @@ feature 'User can vote for a question', %q{
 
     background { visit questions_path }
 
-    scenario 'vote up for question' do
-      expect(page).to_not have_selector '.vote'
-    end
-
-    scenario 'vote down for question' do
-      expect(page).to_not have_selector '.vote'
-    end
-
-    scenario 'cancel vote' do
+    scenario 'vote' do
       expect(page).to_not have_selector '.vote'
     end
   end
