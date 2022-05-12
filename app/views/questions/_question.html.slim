@@ -1,4 +1,5 @@
 h1= @question.title
+= render 'shared/vote', resource: @question
 
 .question_links
   = render 'links/links', resource: @question

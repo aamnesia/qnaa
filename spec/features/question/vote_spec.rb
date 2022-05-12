@@ -14,71 +14,59 @@ feature 'User can vote for a question', %q{
 
     background do
       sign_in voter
-      visit questions_path
+      visit question_path(question)
     end
 
     scenario 'votes up for question' do
-      within "#question_#{question.id}" do
-        click_on '+'
+      click_on '+'
 
-        within '.rating' do
-          expect(page).to have_content '1'
-        end
+      within '.rating' do
+        expect(page).to have_content '1'
       end
     end
 
     scenario 'tries to vote up for question twice' do
-      within "#question_#{question.id}" do
-        click_on '+'
-        click_on '+'
+      click_on '+'
+      click_on '+'
 
-        within '.rating' do
-          expect(page).to have_content '1'
-        end
+      within '.rating' do
+        expect(page).to have_content '1'
       end
     end
 
     scenario 'cancels his vote' do
-      within "#question_#{question.id}" do
-        click_on '+'
-        click_on 'Cancel vote'
+      click_on '+'
+      click_on 'Cancel vote'
 
-        within '.rating' do
-          expect(page).to have_content '0'
-        end
+      within '.rating' do
+        expect(page).to have_content '0'
       end
     end
 
     scenario 'votes down for question' do
-      within "#question_#{question.id}" do
-        click_on '-'
+      click_on '-'
 
-        within '.rating' do
-          expect(page).to have_content '-1'
-        end
+      within '.rating' do
+        expect(page).to have_content '-1'
       end
     end
 
     scenario 'tries to vote down for question twice' do
-      within "#question_#{question.id}" do
-        click_on '-'
-        click_on '-'
+      click_on '-'
+      click_on '-'
 
-        within '.rating' do
-          expect(page).to have_content '-1'
-        end
+      within '.rating' do
+        expect(page).to have_content '-1'
       end
     end
 
     scenario 'can re-votes' do
-      within "#question_#{question.id}" do
-        click_on "+"
-        click_on 'Cancel vote'
-        click_on '-'
+      click_on "+"
+      click_on 'Cancel vote'
+      click_on '-'
 
-        within '.rating' do
-          expect(page).to have_content '-1'
-        end
+      within '.rating' do
+        expect(page).to have_content '-1'
       end
     end
   end
@@ -87,7 +75,7 @@ feature 'User can vote for a question', %q{
 
     background do
       sign_in author
-      visit questions_path
+      visit question_path(question)
     end
 
     scenario 'vote' do
@@ -97,7 +85,7 @@ feature 'User can vote for a question', %q{
 
   describe 'Unauthorized user tries to' do
 
-    background { visit questions_path }
+    background { visit question_path(question) }
 
     scenario 'vote' do
       expect(page).to_not have_selector '.vote'
