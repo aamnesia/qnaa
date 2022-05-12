@@ -1,7 +1,6 @@
-- @questions.each do |q|
-  div id = "question_#{q.id}"
-    h3= link_to q.title, q
-    = render 'shared/vote', resource: q
-
+.questions
+  - @questions.each do |q|
+    div id = "question_#{q.id}"
+      h3= link_to q.title, q
 
 p= link_to 'Ask question', new_question_path
