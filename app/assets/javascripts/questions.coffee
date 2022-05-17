@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', () ->
+$(document).on 'DOMContentLoaded', () ->
   $('.question').on 'click', '.edit-question-link', (e) ->
     e.preventDefault();
     $(this).hide();
@@ -10,5 +10,5 @@ $(document).on 'turbolinks:load', () ->
       @perform 'follow'
     ,
     received: (data) ->
-      $('.questions').append(data)
+      $('.questions').append(JST["templates/question"](data))
   });

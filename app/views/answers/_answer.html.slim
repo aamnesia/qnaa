@@ -18,6 +18,11 @@ div id="answer_#{answer.id}"
   .answer_links
     = render 'links/links', resource: answer
 
+  .answer_comments
+    = render 'comments/comments', resource: answer
+
+  = render 'comments/form', resource: answer
+
 
 
 

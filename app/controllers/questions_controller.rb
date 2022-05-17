@@ -12,6 +12,7 @@ class QuestionsController < ApplicationController
   def show
     @answer = Answer.new
     @answer.links.new
+    @comment = Comment.new
   end
 
   def new
@@ -50,6 +51,7 @@ class QuestionsController < ApplicationController
 
   def load_question
     @question = Question.with_attached_files.find(params[:id])
+    gon.question_id = @question.id
   end
 
   def question_params
@@ -63,10 +65,7 @@ class QuestionsController < ApplicationController
 
     ActionCable.server.broadcast(
       'questions',
-      ApplicationController.render(
-       partial: 'questions/question_each',
-       locals: { question: @question }
-      )
+       question: @question,
     )
   end
 end
