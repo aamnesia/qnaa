@@ -26,7 +26,7 @@ feature 'User can edit his question', %q{
     end
 
     scenario 'edits his question' do
-      within '.question' do
+      within ".question" do
         fill_in 'Title', with: 'New title'
         fill_in 'Body', with: 'New body'
         click_on 'Save'
@@ -40,7 +40,7 @@ feature 'User can edit his question', %q{
     end
 
     scenario 'edits his question with errors' do
-      within '.question' do
+      within ".question" do
         fill_in 'Body', with: ''
         click_on 'Save'
 
@@ -51,7 +51,7 @@ feature 'User can edit his question', %q{
     end
 
     scenario 'edits a question with attached files' do
-      within '.question' do
+      within ".question" do
         fill_in 'Title', with: 'New title'
         fill_in 'Body', with: 'New body'
 
@@ -64,7 +64,7 @@ feature 'User can edit his question', %q{
     end
 
     scenario 'adds links while editing' do
-      within '.question' do
+      within ".question" do
         click_on 'Add link'
         fill_in 'Link name', with: 'New link'
         fill_in 'Url', with: url
