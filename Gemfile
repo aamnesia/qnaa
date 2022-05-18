@@ -21,6 +21,9 @@ gem 'cocoon'
 gem 'octokit', '~> 4.0'
 gem 'skim'
 gem 'gon'
+gem 'omniauth'
+gem 'omniauth-github'
+gem "omniauth-rails_csrf_protection"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
