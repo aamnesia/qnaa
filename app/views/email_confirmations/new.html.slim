@@ -1,0 +1,7 @@
+h1 Confirm Email
+= form_with url: user_confirmation_path, local: true do |f|
+  p
+    = f.label :email
+    = f.email_field :email
+
+  p= f.submit 'Confirm'
