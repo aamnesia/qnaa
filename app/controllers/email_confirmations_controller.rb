@@ -1,4 +1,6 @@
 class EmailConfirmationsController < Devise::ConfirmationsController
+  skip_authorization_check
+
   def new; end
 
   def create

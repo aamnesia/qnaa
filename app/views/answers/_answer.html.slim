@@ -2,7 +2,7 @@ div id="answer_#{answer.id}"
 
   - if answer.best?
     h4= 'The Best!'
-  - elsif current_user&.author?(answer)
+  - elsif can?(:set_best, answer)
     p= link_to 'Set best',
     set_best_answer_path(answer),
     method: :patch,
@@ -21,15 +21,16 @@ div id="answer_#{answer.id}"
   .answer_comments
     = render 'comments/comments', resource: answer
 
-  = render 'comments/form', resource: answer
+  -if can?(:create, Comment)
+    = render 'comments/form', resource: answer
 
 
 
 
-  - if current_user&.author?(answer)
-
+  - if can?(:update, answer)
     p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
 
+  - if can?(:destroy, answer)
     p= link_to 'Delete answer',
                 answer_path(answer),
                 method: :delete,

@@ -8,15 +8,16 @@ h3= "Answers"
 .answers
   = render @question.answers
 
-.answer-errors
-  = render 'shared/errors', resource: @answer
-= form_with model: [@question, @answer], class: 'new-answer' do |f|
-  p
-    = f.label :body, 'New answer'
-    = f.text_area :body
-  p
-    = f.label :files
-    = f.file_field :files, multiple: true, direct_upload: true
+- if can?(:create, @answer)
+  .answer-errors
+    = render 'shared/errors', resource: @answer
+  = form_with model: [@question, @answer], class: 'new-answer' do |f|
+    p
+      = f.label :body, 'New answer'
+      = f.text_area :body
+    p
+      = f.label :files
+      = f.file_field :files, multiple: true, direct_upload: true
 
-    = render 'links/form', resource: f
-    = f.submit 'Create'
+      = render 'links/form', resource: f
+      = f.submit 'Create'

@@ -4,7 +4,9 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :load_question, only: :create
   before_action :load_answer, only: [:destroy, :update, :set_best]
-  after_action :publish_answer, only: [:create]
+  after_action :publish_answer, only: :create
+
+  authorize_resource
 
   def create
     @answer = @question.answers.create(answer_params)
@@ -13,17 +15,17 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer.update(answer_params) if current_user.author?(@answer)
+    @answer.update(answer_params)
     @question = @answer.question
   end
 
   def destroy
-    @answer.destroy if current_user.author?(@answer)
+    @answer.destroy
   end
 
   def set_best
     @question = @answer.question
-    @answer.set_best! if current_user.author?(@answer)
+    @answer.set_best!
   end
 
   private

@@ -8,7 +8,7 @@ feature 'User can edit his answer', %q{
 
   given!(:user) { create(:user) }
   given!(:author) { create(:user) }
-  given!(:question) { create(:question) }
+  given!(:question) { create(:question, user: author) }
   given!(:answer) { create(:answer, question: question, user: author) }
   given!(:answers) { create_list(:answer, 4, question: question, user: author) }
 

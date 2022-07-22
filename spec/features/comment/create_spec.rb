@@ -42,19 +42,13 @@ feature 'User can create a comment for the question or answer', %q{
 
     scenario 'question' do
       within '.question' do
-        fill_in 'Your comment', with: 'Test comment'
-        click_on 'Add Your Comment'
-
-        expect(page).to_not have_content 'Test comment'
+      expect(page).to_not have_content 'Your comment'
       end
     end
 
     scenario 'answer' do
       within '.answers' do
-        fill_in 'Your comment', with: 'Test comment'
-        click_on 'Add Your Comment'
-
-        expect(page).to_not have_content 'Test comment'
+        expect(page).to_not have_content 'Your comment'
       end
     end
   end

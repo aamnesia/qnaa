@@ -16,7 +16,7 @@ feature 'User can sign up', %q{
       click_on 'Sign up'
 
       expect(page).to have_content 'A message with a confirmation link has been sent to your email address. Please follow the link to activate your account.'
-      open_email(user_attr[:email])
+      open_email 'correct@test.com'
       current_email.click_link 'Confirm my account'
       expect(page).to have_content 'Your email address has been successfully confirmed.'
     end
