@@ -27,6 +27,8 @@ gem "omniauth-rails_csrf_protection"
 gem 'omniauth-vkontakte'
 gem 'cancancan'
 gem 'doorkeeper', '5.1'
+gem 'active_model_serializers', '~> 0.10'
+gem 'oj'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
