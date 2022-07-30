@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  use_doorkeeper
   devise_for :users, controllers: {
                                     omniauth_callbacks: 'oauth_callbacks',
                                     confirmations: 'email_confirmations'
@@ -25,6 +26,18 @@ Rails.application.routes.draw do
   resources :attachments, only: :destroy
   resources :rewards, only: :index
   resources :links, only: :destroy
+
+  namespace :api do
+    namespace :v1 do
+      resources :profiles, only: [:index] do
+        get :me, on: :collection
+      end
+
+      resources :questions, except: %i[new edit] do
+        resources :answers, except: %i[new edit], shallow: true
+      end
+    end
+  end
 
   root to: 'questions#index'
 
