@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SubscriptionsController, type: :controller do
   let(:user) { create(:user) }
-  let!(:question) { create(:question, user: user) }
+  let(:question) { create(:question, user: user) }
   let(:create_request) { post :create, params: { question_id: question }, format: :js }
   let(:destroy_request) { delete :destroy, params: { id: subscription.id }, format: :js }
 

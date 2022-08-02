@@ -14,6 +14,8 @@ class Answer < ApplicationRecord
 
   scope :sort_by_best, -> { order(best: :desc) }
 
+  after_create :email_notification
+
   def set_best!
     answer = question.answers.find_by(best: true)
 
@@ -22,5 +24,11 @@ class Answer < ApplicationRecord
       update!(best: true)
       question.reward&.update!(user: user)
     end
+  end
+
+  private
+
+  def email_notification
+    NewAnswerNotificationJob.perform_later(self)
   end
 end
