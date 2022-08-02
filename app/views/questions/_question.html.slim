@@ -11,6 +11,10 @@ h1= @question.title
 
 p= @question.body
 
+.subscription
+  - if can?(:create, Subscription)
+    = render 'subscriptions/subscription', resource: @question
+
 .question_comments
   = render 'comments/comments', resource: @question
 -if can?(:create, Comment)

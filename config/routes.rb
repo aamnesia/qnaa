@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resources :answers, shallow: true, concerns: %i[voted commentable] do
       patch :set_best, on: :member
     end
+    resources :subscriptions, only: %i[create destroy], shallow: true
   end
 
   resources :attachments, only: :destroy
@@ -47,5 +48,5 @@ Rails.application.routes.draw do
 
   root to: 'questions#index'
 
-   mount ActionCable.server => '/cable'
+  mount ActionCable.server => '/cable'
 end

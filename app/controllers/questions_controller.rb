@@ -4,6 +4,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:show, :edit, :update, :destroy]
   after_action :publish_question, only: :create
+  before_action :load_subscription, only: %i[show update]
 
   authorize_resource
 
@@ -65,5 +66,9 @@ class QuestionsController < ApplicationController
       'questions',
        question: @question,
     )
+  end
+
+  def load_subscription
+    @subscription = @question.subscriptions.find_by(user: current_user)
   end
 end

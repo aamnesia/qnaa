@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:questions).dependent(:destroy) }
   it { should have_many(:votes).dependent(:destroy) }
   it { should have_many(:authorizations).dependent(:destroy) }
+  it { should have_many(:subscriptions).dependent(:destroy) }
 
   it { should validate_presence_of :email }
   it { should validate_presence_of :password }
@@ -48,6 +49,20 @@ RSpec.describe User, type: :model do
     it do
       expect(user.create_authorization!(auth))
         .to have_attributes(auth)
+    end
+  end
+
+  describe '#subscribed?' do
+    let(:user) { create(:user) }
+    let(:unsubscribed_user) { create(:user) }
+    let(:question) { create(:question) }
+
+    it 'return false if user is unsubscribed' do
+      expect(unsubscribed_user).not_to be_subscribed(question)
+    end
+
+    it 'return true if user is subscribed' do
+      expect(user).not_to be_subscribed(question)
     end
   end
 end
