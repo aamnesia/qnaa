@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :attachments, only: :destroy
   resources :rewards, only: :index
   resources :links, only: :destroy
+  resources :searches, only: :index
 
   namespace :api do
     namespace :v1 do

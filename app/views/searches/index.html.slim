@@ -1,0 +1,5 @@
+h1 Search results:
+.text-muted
+   | #{@results.count} found
+- @results.each do |result|
+  = render partial: result.class.to_s.downcase, locals: { resource: result }
