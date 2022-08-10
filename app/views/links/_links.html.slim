@@ -3,9 +3,9 @@ p Links:
 - resource.links.each do |link|
   div id="link_#{link.id}"
     - if link.gist_link?
-      = link.gist_contents
+      li= link.gist_contents
     - else
-      = link_to link.name, link.url
+      li= link_to link.name, link.url
 
     - if can?(:destroy, link)
       p= link_to 'Delete link', link_path(link), method: :delete, remote: true, data: {confirm: "Are you sure?"}

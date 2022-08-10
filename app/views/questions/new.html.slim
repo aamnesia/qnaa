@@ -3,23 +3,25 @@
 = form_with model: @question, local: true do |f|
   p
     = f.label :title
+    br
     = f.text_field :title
   p
     = f.label :body
+    br
     = f.text_area :body
-
-  p= render 'links/form', resource: f
-
   p
     = f.label :files
-    = f.file_field :files, multiple: true, direct_upload: true
+    = f.file_field :files, multiple: true
   p
     = f.fields_for :reward do |r|
       p
         = r.label :title, 'Reward title'
-        = r.text_area :title
+        br
+        = r.text_field :title
       p
         = r.label :image
         = r.file_field :image
+
+  p= render 'links/form', resource: f
 
   p= f.submit 'Ask'

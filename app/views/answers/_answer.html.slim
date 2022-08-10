@@ -8,9 +8,9 @@ div id="answer_#{answer.id}"
     method: :patch,
     remote: true
 
-  p= answer.body
-
   = render 'shared/vote', resource: answer
+
+  h3= answer.body
 
   .answer_files
     = render 'attachments/attachments', resource: answer
@@ -22,10 +22,7 @@ div id="answer_#{answer.id}"
     = render 'comments/comments', resource: answer
 
   -if can?(:create, Comment)
-    = render 'comments/form', resource: answer
-
-
-
+    p= render 'comments/form', resource: answer
 
   - if can?(:update, answer)
     p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
@@ -39,12 +36,15 @@ div id="answer_#{answer.id}"
   = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
     p
       = f.label :body, 'Your answer'
+      br
       = f.text_area :body
-
-    p= render 'links/form', resource: f
 
     p
       = f.label :files
-      = f.file_field :files, multiple: true, direct_upload: true
+      = f.file_field :files, multiple: true
+
+    p= render 'links/form', resource: f
     p
       = f.submit 'Save'
+
+  hr

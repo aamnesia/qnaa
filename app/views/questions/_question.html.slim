@@ -1,6 +1,10 @@
 h1= @question.title
 = render 'shared/vote', resource: @question
 
+.subscription
+  - if can?(:create, Subscription)
+    p= render 'subscriptions/subscription', resource: @question
+
 .question_links
   = render 'links/links', resource: @question
 
@@ -9,16 +13,12 @@ h1= @question.title
 
 = render 'rewards/rewards'
 
-p= @question.body
-
-.subscription
-  - if can?(:create, Subscription)
-    = render 'subscriptions/subscription', resource: @question
+h2= @question.body
 
 .question_comments
-  = render 'comments/comments', resource: @question
+  p= render 'comments/comments', resource: @question
 -if can?(:create, Comment)
-  = render 'comments/form', resource: @question
+  p= render 'comments/form', resource: @question
 
 
 - if can?(:update, question)
@@ -42,5 +42,5 @@ p= @question.body
 
     p
       = f.label :files
-      = f.file_field :files, multiple: true, direct_upload: true
+      = f.file_field :files, multiple: true
     p= f.submit 'Save'
