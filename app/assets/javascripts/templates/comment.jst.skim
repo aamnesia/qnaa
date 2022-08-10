@@ -1,5 +1,4 @@
-.text-muted.blockquote.text-right
-  = @email
-  br
-  = @created_at
 = @comment.body
+.text-muted.small
+  = @comment.user.email
+p= "-------------------"

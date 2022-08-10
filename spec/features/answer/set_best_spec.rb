@@ -52,7 +52,7 @@ feature 'User can edit his answer', %q{
         end
       end
 
-      expect(page.find('.answers div:first-child')).to have_content answers[0].body
+      expect(page.all('.answers').first).to have_content answers[0].body
     end
   end
 

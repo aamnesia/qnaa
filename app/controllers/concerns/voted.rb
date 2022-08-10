@@ -23,9 +23,7 @@ module Voted
   private
 
   def render_json
-    render json: { resourceName: @votable.class.name.downcase,
-                   resourceId: @votable.id,
-                   rating: @votable.rating }
+    render json: { id: @votable.id, rating: @votable.rating }
   end
 
   def model_class

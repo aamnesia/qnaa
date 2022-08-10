@@ -17,7 +17,7 @@ feature 'User can create a comment for the question or answer', %q{
     end
 
     scenario 'question' do
-      within '.question' do
+      within ".question" do
         fill_in 'Your comment', with: 'Test comment'
         click_on 'Add Your Comment'
 
@@ -41,7 +41,7 @@ feature 'User can create a comment for the question or answer', %q{
     end
 
     scenario 'question' do
-      within '.question' do
+      within ".question" do
       expect(page).to_not have_content 'Your comment'
       end
     end

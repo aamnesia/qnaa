@@ -59,7 +59,8 @@ feature 'User can create question', %q{
   scenario 'Unauthenticated user tries to ask a question' do
     visit questions_path
 
-    expect(page).to_not have_link 'Ask'
+    click_on 'Ask'
+    expect(page).to have_content 'You need to sign in or sign up before continuing.'
   end
 
   context 'Multiple sessions', js: true do
@@ -71,7 +72,6 @@ feature 'User can create question', %q{
 
       Capybara.using_session('guest') do
         visit questions_path
-        save_and_open_page
       end
 
       Capybara.using_session('user') do
@@ -87,7 +87,6 @@ feature 'User can create question', %q{
 
       Capybara.using_session('guest') do
         expect(page).to have_content 'Test question'
-        save_and_open_page
       end
     end
   end

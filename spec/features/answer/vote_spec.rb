@@ -20,8 +20,8 @@ feature 'User can vote for a answer', %q{
 
     scenario 'votes up for answer' do
       within "#answer_#{answer.id}" do
-        click_on '+'
-
+        click_on '▲'
+        
         within '.rating' do
           expect(page).to have_content '1'
         end
@@ -30,8 +30,8 @@ feature 'User can vote for a answer', %q{
 
     scenario 'tries to vote up for answer twice' do
       within "#answer_#{answer.id}" do
-        click_on '+'
-        click_on '+'
+        click_on '▲'
+        click_on '▲'
 
         within '.rating' do
           expect(page).to have_content '1'
@@ -41,7 +41,7 @@ feature 'User can vote for a answer', %q{
 
     scenario 'cancels his vote' do
       within "#answer_#{answer.id}" do
-        click_on '+'
+        click_on '▲'
         click_on 'Cancel vote'
 
         within '.rating' do
@@ -52,7 +52,7 @@ feature 'User can vote for a answer', %q{
 
     scenario 'votes down for answer' do
       within "#answer_#{answer.id}" do
-        click_on '-'
+        click_on '▼'
 
         within '.rating' do
           expect(page).to have_content '-1'
@@ -62,8 +62,8 @@ feature 'User can vote for a answer', %q{
 
     scenario 'tries to vote down for answer twice' do
       within "#answer_#{answer.id}" do
-        click_on '-'
-        click_on '-'
+        click_on '▼'
+        click_on '▼'
 
         within '.rating' do
           expect(page).to have_content '-1'
@@ -73,9 +73,9 @@ feature 'User can vote for a answer', %q{
 
     scenario 'can re-votes' do
       within "#answer_#{answer.id}" do
-        click_on "+"
+        click_on "▲"
         click_on 'Cancel vote'
-        click_on '-'
+        click_on '▼'
 
         within '.rating' do
           expect(page).to have_content '-1'
