@@ -1,4 +1,8 @@
 div id="answer_#{answer.id}"
+  .text-muted.blockquote.text-right.small
+    = answer.user.email
+    br
+    = answer.created_at
 
   - if answer.best?
     h4= 'The Best!'
@@ -17,12 +21,6 @@ div id="answer_#{answer.id}"
 
   .answer_links
     = render 'links/links', resource: answer
-
-  .answer_comments
-    = render 'comments/comments', resource: answer
-
-  -if can?(:create, Comment)
-    p= render 'comments/form', resource: answer
 
   - if can?(:update, answer)
     p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
@@ -46,5 +44,11 @@ div id="answer_#{answer.id}"
     p= render 'links/form', resource: f
     p
       = f.submit 'Save'
+
+  .answer_comments
+    = render 'comments/comments', resource: answer
+
+  -if can?(:create, Comment)
+    p= render 'comments/form', resource: answer
 
   hr
