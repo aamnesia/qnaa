@@ -35,14 +35,12 @@ feature 'User can edit his answer', %q{
     end
 
     scenario 'changes best answer' do
-
       within "div#answer_#{answers[-1].id}" do
         click_on 'Set best'
       end
 
       within "div#answer_#{answers[0].id}" do
         click_on 'Set best'
-
         expect(page).to_not have_content 'Set best'
       end
 

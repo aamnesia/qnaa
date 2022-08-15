@@ -3,5 +3,4 @@ em.h3= link_to 'Ask question', new_question_path
 
 .questions
   - @questions.each do |q|
-    div id = "question_#{q.id}"
-      h4= link_to q.title, q
+    h4= link_to q.title, q
