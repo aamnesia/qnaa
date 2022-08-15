@@ -13,17 +13,16 @@ class Services::FindForOauth
     user = User.where(email: email).first
     if user
       user.create_authorization!(@auth)
-    elsif email
-      password = Devise.friendly_token[0, 20]
-      user = User.new(email: email, password: password, password_confirmation: password)
-
-      user.transaction do
-        user.skip_confirmation!
-        user.save!
-        user.create_authorization!(@auth)
-      end
     else
-      user = User.new
+      password = Devise.friendly_token[0, 20]
+      if email
+        user = User.create!(email: email, password: password, password_confirmation: password)
+        user.confirm
+      else
+        user = User.new(password: password, password_confirmation: password)
+        user.save
+      end
+      user.create_authorization!(@auth)
     end
 
     user
