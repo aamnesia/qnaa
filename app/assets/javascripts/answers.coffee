@@ -10,6 +10,7 @@ $(document).on 'turbolinks:load', () ->
       @perform 'follow', question_id: gon.question_id
     ,
     received: (data) ->
-      if data.answer.user_id != gon.user_id
-        $('.answers').append(JST["templates/answer"](data))
+      if data.user_id != gon.user_id
+        answerHtml = require('templates/answer.hbs')(data)
+        $('.answers').append(answerHtml)
   });

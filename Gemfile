@@ -20,6 +20,8 @@ gem 'aws-sdk-s3', require: false
 gem 'cocoon'
 gem 'octokit', '~> 4.0'
 gem 'skim'
+gem 'sprockets'
+gem 'handlebars_assets'
 gem 'gon'
 gem 'omniauth'
 gem 'omniauth-github'

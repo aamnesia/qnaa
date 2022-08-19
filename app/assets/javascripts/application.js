@@ -18,6 +18,8 @@
 //= require twitter/bootstrap
 //= require cocoon
 //= require skim
+//= require handlebars
+//= require_tree ./templates
 //= require_tree .
 
 var App = App || {};

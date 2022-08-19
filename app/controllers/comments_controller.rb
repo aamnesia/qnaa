@@ -36,5 +36,12 @@ class CommentsController < ApplicationController
         email: @comment.user.email,
         created_at: @comment.created_at
     )
+    ActionCable.server.broadcast(
+        "comments_question_#{question_id}",
+        ApplicationController.render(
+            partial: 'comments/action_cable_partial',
+            locals: { comment: @comment }
+        )
+    )
   end
 end

@@ -187,6 +187,10 @@ GEM
       i18n (>= 0.7)
       multi_json
       request_store (>= 1.0)
+    handlebars_assets (0.23.9)
+      execjs (~> 2.0)
+      sprockets (>= 2.0.0)
+      tilt (>= 1.2)
     hashie (5.0.0)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
@@ -480,6 +484,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   gon
+  handlebars_assets
   jbuilder (~> 2.5)
   jquery-rails
   launchy
@@ -507,6 +512,7 @@ DEPENDENCIES
   slim-rails
   spring
   spring-watcher-listen (~> 2.0.0)
+  sprockets
   thinking-sphinx
   turbolinks (~> 5)
   twitter-bootstrap-rails

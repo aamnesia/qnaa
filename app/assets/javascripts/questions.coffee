@@ -10,5 +10,5 @@ $(document).on 'DOMContentLoaded', () ->
       @perform 'follow'
     ,
     received: (data) ->
-      $('.questions').append(JST["templates/question"](data))
+      $('.questions').append(data)
   });

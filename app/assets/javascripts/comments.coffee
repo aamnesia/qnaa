@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', () ->
+$(document).on 'DOMContentLoaded', () ->
   App.cable.subscriptions.create('CommentsChannel', {
     connected: ->
       @perform 'follow', question_id: gon.question_id
