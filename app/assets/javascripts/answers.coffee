@@ -11,6 +11,6 @@ $(document).on 'turbolinks:load', () ->
     ,
     received: (data) ->
       if data.user_id != gon.user_id
-        answerHtml = require('templates/answer.hbs')(data)
+        answerHtml = HandlebarsTemplates['answer'](data)
         $('.answers').append(answerHtml)
   });

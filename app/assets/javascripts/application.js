@@ -17,7 +17,6 @@
 //= require action_cable
 //= require twitter/bootstrap
 //= require cocoon
-//= require skim
 //= require handlebars
 //= require_tree ./templates
 //= require_tree .

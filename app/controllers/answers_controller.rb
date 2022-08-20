@@ -47,10 +47,7 @@ class AnswersController < ApplicationController
 
     ActionCable.server.broadcast(
        "answers_question_#{@question.id}",
-       ApplicationController.render(
-           partial: 'answers/action_cable_partial',
-           locals: { answer: @answer }
-       )
+       @answer
     )
   end
 end

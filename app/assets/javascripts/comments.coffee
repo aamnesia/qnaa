@@ -5,10 +5,11 @@ $(document).on 'DOMContentLoaded', () ->
     ,
     received: (data) ->
       if data.comment.user_id != gon.user_id
+        commentHtml = HandlebarsTemplates['comment'](data)
         resourceType = data.comment.commentable_type
         divComment =
           if resourceType == 'Question'
           then $('.question_comments')
           else $('#answer_' + data.comment.commentable_id).find('.answer_comments')
-        divComment.append(JST["templates/comment"](data))
+        divComment.append(commentHtml)
   });
