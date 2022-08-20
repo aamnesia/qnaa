@@ -1,16 +1,13 @@
 $(document).on('turbolinks:load', function(){
   $('.question').on('ajax:success', function(e) {
-    var object = e.detail[0];
-    rating('.question', object)
+    var rating = e.detail[0]['rating'];
+    $('.question .vote .rating').html('<p>' + rating + '</p>')
   });
 
   $('.answers').on('ajax:success', function(e) {
     var object = e.detail[0];
-    var answer = $('#answer_' + object['id']);
-    rating(answer, object)
+    var rating = e.detail[0]['rating'];
+    var resourceId = object['id']
+    $('#answer_' + resourceId + ' .vote .rating').html('<p>' + rating + '</p>')
   })
 });
-
-function rating(resource, object) {
-  $(resource).find('.rating').html('<p>' + object['rating'] + '</p>')
-}
