@@ -16,16 +16,16 @@ class EmailConfirmationsController < Devise::ConfirmationsController
 
   private
 
+  def email
+    params.require(:email)
+  end
+
   def after_confirmation_path_for(resource_name, user)
     user.authorizations.create(auth)
     sign_in user, event: :authentication
     signed_in_root_path user
   end
 
-  def email
-    params.require(:email)
-  end
-  
   def auth
     @auth ||= { provider: session['devise.provider'], uid: session['devise.uid'] }
   end

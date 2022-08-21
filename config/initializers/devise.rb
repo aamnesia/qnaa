@@ -264,7 +264,10 @@ Devise.setup do |config|
   config.omniauth :vkontakte,
                   Rails.application.credentials[Rails.env.to_sym][:vkontakte][:app_id],
                   Rails.application.credentials[Rails.env.to_sym][:vkontakte][:app_secret],
-                  scope: [:email]
+                  scope: [:email],
+                  client_options: {
+                    auth_scheme: 'request_body'
+                  }
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
