@@ -1,4 +1,5 @@
-p= comment.body
-.text-muted.small
-  = comment.user.email
-p= "-------------------"
+- cache comment do
+  p= comment.body
+  .text-muted.small
+    = comment.user.email
+  p= "-------------------"
