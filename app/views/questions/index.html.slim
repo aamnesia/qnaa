@@ -1,6 +1,7 @@
-- if can?(:create, Question)
-em.h3= link_to 'Ask question', new_question_path
+- cache collection_cache_key_for :question do
+  - if can?(:create, Question)
+  em.h3= link_to 'Ask question', new_question_path
 
-.questions
-  - @questions.each do |q|
-    h4= link_to q.title, q
+  .questions
+    - @questions.each do |q|
+      h4= link_to q.title, q

@@ -1,54 +1,55 @@
-div id="answer_#{answer.id}"
-  .text-muted.blockquote.text-right.small
-    = answer.user.email
-    br
-    = answer.created_at
-
-  - if answer.best?
-    h4= 'The Best!'
-  - elsif can?(:set_best, answer)
-    p= link_to 'Set best',
-    set_best_answer_path(answer),
-    method: :patch,
-    remote: true
-
-  = render 'shared/vote', resource: answer
-
-  h3= answer.body
-
-  .answer_files
-    = render 'attachments/attachments', resource: answer
-
-  .answer_links
-    = render 'links/links', resource: answer
-
-  - if can?(:update, answer)
-    p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
-
-  - if can?(:destroy, answer)
-    p= link_to 'Delete answer',
-                answer_path(answer),
-                method: :delete,
-                remote: true
-
-  = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
-    p
-      = f.label :body, 'Your answer'
+- cache answer do
+  div id="answer_#{answer.id}"
+    .text-muted.blockquote.text-right.small
+      = answer.user.email
       br
-      = f.text_area :body
+      = answer.created_at
 
-    p
-      = f.label :files
-      = f.file_field :files, multiple: true
+    - if answer.best?
+      h4= 'The Best!'
+    - elsif can?(:set_best, answer)
+      p= link_to 'Set best',
+      set_best_answer_path(answer),
+      method: :patch,
+      remote: true
 
-    p= render 'links/form', resource: f
-    p
-      = f.submit 'Save'
+    = render 'shared/vote', resource: answer
 
-  .answer_comments
-    = render 'comments/comments', resource: answer
+    h3= answer.body
 
-  -if can?(:create, Comment)
-    p= render 'comments/form', resource: answer
+    .answer_files
+      = render 'attachments/attachments', resource: answer
 
-  hr
+    .answer_links
+      = render 'links/links', resource: answer
+
+    - if can?(:update, answer)
+      p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
+
+    - if can?(:destroy, answer)
+      p= link_to 'Delete answer',
+                  answer_path(answer),
+                  method: :delete,
+                  remote: true
+
+    = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
+      p
+        = f.label :body, 'Your answer'
+        br
+        = f.text_area :body
+
+      p
+        = f.label :files
+        = f.file_field :files, multiple: true
+
+      p= render 'links/form', resource: f
+      p
+        = f.submit 'Save'
+
+    .answer_comments
+      = render 'comments/comments', resource: answer
+
+    -if can?(:create, Comment)
+      p= render 'comments/form', resource: answer
+
+    hr
